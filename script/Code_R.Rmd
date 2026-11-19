@@ -59,8 +59,8 @@ suppressPackageStartupMessages({
   library(readr)
 })
 
-pak::pak("kenithgrey/ggQC")
-install.packages("scales")
+# pak::pak("kenithgrey/ggQC")
+# install.packages("scales")
 # ============================================================
 # CONFIGURATION — edit this block to adapt the pipeline
 # ============================================================
@@ -146,9 +146,9 @@ Block size was derived from the range of spatial autocorrelation (see Section 4)
 The environmental raster defines the block grid extent and is required to
 reproduce the folds saved in `results/blockCV_results/sb1_export.rds`.
 
-```{r spatial_split, eval=FALSE, message=FALSE, warning=FALSE}
+```{r spatial_split, eval=TRUE, message=FALSE, warning=FALSE}
 plots_pet <- read_csv(
-  "database/undisturbed_plots_sf_env_clim_4th_inv_study_area_PET.csv",
+  "database/database.csv",
   show_col_types = FALSE
 ) |>
   mutate(across(any_of(factor_vars), as.factor))
@@ -176,6 +176,7 @@ sb1 <- cv_spatial(
   progress = FALSE
 )
 
+dir.create(file.path(out_dir, "results/blockCV_results"), recursive = TRUE, showWarnings = FALSE)
 saveRDS(sb1, "results/blockCV_results/sb1_export.rds")
 
 train_indices <- sb1$folds_list[[1]][[1]]
@@ -479,7 +480,7 @@ Variable importance was tested for statistical significance using the Altmann pe
 # Parallel backend
 n_cores <- max(1, parallel::detectCores() - 1)
 cl <- parallel::makePSOCKcluster(n_cores)
-parallel::clusterEvalQ(cl, .libPaths(c("H:/R_lib", .libPaths())))
+parallel::clusterEvalQ(cl, .libPaths(c("H:/R_lib", .libPaths()))) # Adjust your libpaths if necessary
 doParallel::registerDoParallel(cl)
 on.exit(try(parallel::stopCluster(cl), silent = TRUE), add = TRUE)
 
@@ -1602,7 +1603,7 @@ cat("Hex maps (observed + predicted, train + test) complete.\n")
 
 ```{r study_area_map, message=FALSE, warning=FALSE}
 plots_all <- read_csv(
-  "database/undisturbed_plots_sf_env_clim_4th_inv_study_area_PET.csv",
+  "database/database.csv",
   show_col_types = FALSE
 ) %>%
   st_as_sf(coords = c("longitude", "latitude"), crs = 2950)
@@ -1834,7 +1835,7 @@ fit_sensitivity_model <- function(df_sp, predictors, sp, seed) {
 }
 
 cl_sens <- parallel::makePSOCKcluster(max(1, parallel::detectCores() - 1))
-parallel::clusterEvalQ(cl_sens, .libPaths(c("H:/R_lib", .libPaths())))
+parallel::clusterEvalQ(cl_sens, .libPaths(c("H:/R_lib", .libPaths()))) # Adjust your libpaths if necessary
 doParallel::registerDoParallel(cl_sens)
 
 sensitivity_results <- list()
@@ -1920,14 +1921,8 @@ print(table_B_single_species, n = Inf)
 library(rmarkdown)
 
 render(
-  paste0(
-    "G:/Thesis/2ndChapter/script/",
-    "000_CzarneckiLiz_RForest_Phytosociological_Proxies_IV_prediction.Rmd"
-  ),
+  "script/Code_R.Rmd",
   output_format = "pdf_document",
-  output_file = file.path(
-    "G:/Thesis/2ndChapter/results/RF_models_20260626_111002",
-    "modeling_report.pdf"
-  )
+  output_file = file.path(out_dir, "modeling_report.pdf")
 )
 ```
