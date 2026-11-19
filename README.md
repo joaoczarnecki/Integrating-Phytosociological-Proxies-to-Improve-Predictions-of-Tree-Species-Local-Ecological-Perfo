@@ -1,8 +1,6 @@
 # Integrating Phytosociological Proxies to Improve Predictions of Tree Species’ Local Ecological Performance: Potentials and Limitations
 
-[![Status](https://img.shields.io/badge/Status-Submitted%202026-orange)]()
-[![Journal](https://img.shields.io/badge/Journal-CJFR-darkgreen)]()
-[![R](https://img.shields.io/badge/R-4.5.2-276DC3?logo=r)](https://www.r-project.org/)
+[![Status](https://img.shields.io/badge/Status-Accepted%202026-brightgreen)]() [![Journal](https://img.shields.io/badge/Journal-CJFR-darkgreen)]() [![R](https://img.shields.io/badge/R-4.5.2-276DC3?logo=r)](https://www.r-project.org/)
 
 ## Overview
 
@@ -19,23 +17,24 @@ Intensifying disturbances and climate change are disrupting forest ecosystems gl
 ## Repository Structure
 
 ```
-Integrating-Phytosociological-Proxies/
+Integrating-Phytosociological-Proxies-to-Improve-Predictions-of-Tree-Species-Local-Ecological-Perfo/
 │
 ├── script/
-│   └── 000_CzarneckiLiz_RForest_Phytosociological_Proxies_IV_prediction.Rmd   # Full reproducible analysis
+│   └── Code_R.Rmd          # Full reproducible analysis
 │
 ├── database/
-│   └── undisturbed_plots_sf_env_clim_4th_inv_study_area_PET.csv                # Plot-level dataset
+│   └── database.csv        # Plot-level dataset
+│   └── study_area_ok.shp   # Study area boundary shapefile (.shp, .shx, .dbf, .prj)
 │
-├── 000_CzarneckiLiz_RForest_Phytosociological_Proxies_IV_prediction.html       # Rendered HTML output
-└── 000_CzarneckiLiz_RForest_Phytosociological_Proxies_IV_prediction.pdf        # Rendered PDF output
+└── README.md
+
 ```
 
 ---
 
 ## Data
 
-The dataset (`undisturbed_plots_sf_env_clim_4th_inv_study_area_PET.csv`) contains plot-level observations from the 4th Quebec Forest Inventory, filtered to undisturbed stands within the study area. Variables include:
+The dataset (`database.csv`) contains plot-level observations from the 4th Quebec Forest Inventory, filtered to undisturbed stands within the study area. Variables include:
 
 - **Response variable:** Importance Value (IV) for seven tree species — *Abies balsamea* (SAB), *Betula papyrifera* (BOP), *Betula alleghaniensis* (BOJ), *Picea mariana* (EPN), *Populus tremuloides* (EPB), *Acer rubrum* (ERR), and *Acer saccharum* (ERS)
 - **Abiotic predictors:** bioclimatic variables (ClimateNA), topographic metrics (TWI, slope, aspect, curvature, wind exposition, insolation), and soil properties (CEC, clay, pH, organic matter)
@@ -46,7 +45,7 @@ The dataset (`undisturbed_plots_sf_env_clim_4th_inv_study_area_PET.csv`) contain
 
 ## Reproducible Analysis
 
-The full analysis pipeline is documented in `000_CzarneckiLiz_RForest_Phytosociological_Proxies_IV_prediction.Rmd` and covers:
+The full analysis pipeline is documented in `Code_R.Rmd` and covers:
 
 1. Data preparation and spatial filtering
 2. Train/test spatial split (independent test set)
@@ -80,7 +79,7 @@ To reproduce the analysis, open the `.Rmd` file in RStudio and knit, or run sequ
 
 ## Citation
 
-> Citation details will be updated upon acceptance and publication.
+Czarnecki de Liz, J. P., Thiffault, N., D'Orangeville, L., Coops, N. C., & Achim, A. (2026). Integrating Phytosociological Proxies to Improve Predictions of Tree Species’ Local Ecological Performance: Potentials and Limitations. Canadian Journal of Forest Research (Accepted, Nov 12th 2026).
 
 ---
 
